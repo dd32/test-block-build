@@ -49,4 +49,4 @@ jobs:
   include:
     - name: Testing
       script:
-        - wget http://localhost:8888/
+        - curl -i http://localhost:8888/
