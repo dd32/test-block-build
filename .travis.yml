@@ -36,7 +36,7 @@ before_install:
 install:
   - npm ci
   - |
-    echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog", "plugins":[ "https://downloads.wordpress.org/plugin/block-a-saurus.latest-stable.zip" ] } }' > .wp-env.override.json
+    echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "plugins":[ "https://downloads.wordpress.org/plugin/block-a-saurus.latest-stable.zip" ] }' > .wp-env.override.json
     chmod -R 767 ./ 
     npm run wp-env start
   - |
