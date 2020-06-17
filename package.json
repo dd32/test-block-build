@@ -1,0 +1,17 @@
+{
+	"name": "Block Testin'",
+	"version": "1.2.3",
+	"private": true,
+	"description": "A new Block Testing experience.",
+	"author": "You",
+	"license": "GPL-2.0-or-later",
+	"keywords": [],
+	"homepage": "",
+	"repository": "",
+	"dependencies": {
+		"@wordpress/env": "^1.5.0"
+	},
+	"devDependencies": {},
+	"scripts": {},
+	"wp-env": {}
+}

@@ -1,0 +1,62 @@
+language: generic
+
+services:
+  - docker
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.npm
+    - $HOME/.nvm/.cache
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - BLOCK: block-a-saurus
+    - WP_DEVELOP_DIR: ./wordpress
+    - LOCAL_SCRIPT_DEBUG: false
+
+before_install:
+  - nvm install --latest-npm
+  - |
+    # Upgrade docker-compose.
+    sudo rm /usr/local/bin/docker-compose
+    curl -sL https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` > docker-compose
+    chmod +x docker-compose
+    sudo mv docker-compose /usr/local/bin
+
+install:
+  - npm ci
+  - |
+    echo '{ "config": { "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog", "plugins":[ "https://downloads.wordpress.org/plugin/block-a-saurus.latest-stable.zip" ] } }' > .wp-env.override.json
+    chmod -R 767 ./ 
+    npm run wp-env start
+  - |
+    if [[ "$E2E_ROLE" = "author" ]]; then
+      npm run wp-env run tests-cli "wp user create author author@example.com --role=author --user_pass=authpass"
+      npm run wp-env run tests-cli "wp post update 1 --post_author=2"
+    fi
+
+jobs:
+  include:
+    - name: Testing
+      script:
+        - wget http://localhost:8888/
+
+    - name: PHP unit tests
+      script:
+        - npm run test-php && npm run test-unit-php-multisite
+
+    - name: E2E tests (Admin) (4/4)
+      env: FORCE_REDUCED_MOTION=true
+      script:
+        - $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --listTests > ~/.jest-e2e-tests
+        - $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --cacheDirectory="$HOME/.jest-cache" --runTestsByPath $( awk 'NR % 4 == 3' < ~/.jest-e2e-tests )
