@@ -51,3 +51,4 @@ jobs:
       script:
         - docker ps -a
         - curl -i http://localhost:8888/
+        - npm run wp-env run cli wp plugin list
