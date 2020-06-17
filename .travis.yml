@@ -50,13 +50,3 @@ jobs:
     - name: Testing
       script:
         - wget http://localhost:8888/
-
-    - name: PHP unit tests
-      script:
-        - npm run test-php && npm run test-unit-php-multisite
-
-    - name: E2E tests (Admin) (4/4)
-      env: FORCE_REDUCED_MOTION=true
-      script:
-        - $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --listTests > ~/.jest-e2e-tests
-        - $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --cacheDirectory="$HOME/.jest-cache" --runTestsByPath $( awk 'NR % 4 == 3' < ~/.jest-e2e-tests )
