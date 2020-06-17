@@ -12,6 +12,8 @@
 		"@wordpress/env": "^1.5.0"
 	},
 	"devDependencies": {},
-	"scripts": {},
+	"scripts": {
+		"wp-env": "packages/env/bin/wp-env"
+	},
 	"wp-env": {}
 }
