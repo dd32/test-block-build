@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {},
 	"scripts": {
-		"wp-env": "packages/env/bin/wp-env"
+		"wp-env": "wp-env"
 	},
 	"wp-env": {}
 }
