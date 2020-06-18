@@ -11,7 +11,7 @@ on:
     branches: [ master ]
 
 env:
-  BLOCK: block-a-saurus
+  BLOCK_SLUG: block-a-saurus
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,9 +36,8 @@ jobs:
     - name: Config and start
       run: |
         echo '{ "plugins":[ "https://downloads.wordpress.org/plugin/'$BLOCK_SLUG'.latest-stable.zip" ] }' > .wp-env.override.json
-        cat .wp-env.override.json
         chmod -R 767 ./
-        npm run wp-env start || cat /home/runner/.npm/_logs/2020-06-18*
+        npm run wp-env start
 
     - name: Test it all.
       run: |
