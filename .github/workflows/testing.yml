@@ -28,7 +28,7 @@ jobs:
         node-version: 12.x
 
     - name: Test docker?
-      runs: |
+      run: |
         docker --version
         docker ps -a
 
