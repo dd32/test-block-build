@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ master ]
 
+runs:
+  using: 'docker'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -21,6 +24,18 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Setup Docker
+      run: |
+        sudo rm /usr/local/bin/docker-compose
+        curl -sL https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` > docker-compose
+        chmod +x docker-compose
+        sudo mv docker-compose /usr/local/bin
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
