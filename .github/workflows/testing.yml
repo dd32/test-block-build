@@ -10,15 +10,15 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  BLOCK: block-a-saurus
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "test-block"
   test-block:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    env:
-      BLOCK: block-a-saurus
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
