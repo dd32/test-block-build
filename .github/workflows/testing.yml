@@ -31,8 +31,10 @@ jobs:
         node-version: 12.x
 
     - name: Install
+      run: npm ci
+
+    - name: Config and start
       run: |
-        npm ci
         echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "plugins":[ "https://downloads.wordpress.org/plugin/'$BLOCK_SLUG'.latest-stable.zip" ] }' > .wp-env.override.json
         chmod -R 767 ./
         npm run wp-env start
@@ -42,13 +44,3 @@ jobs:
         curl -i http://localhost:8888/
         npm run wp-env run cli wp plugin list
         docker ps -a
-
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
