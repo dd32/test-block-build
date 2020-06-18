@@ -27,10 +27,10 @@ jobs:
       with:
         node-version: 12.x
 
-   - name: Test docker?
-     runs: |
-       docker --version
-       docker ps -a
+    - name: Test docker?
+      runs: |
+        docker --version
+        docker ps -a
 
     - name: Setup Docker
       run: |
