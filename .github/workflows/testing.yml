@@ -29,8 +29,8 @@ jobs:
 
     - name: Test Vars
       run: |
-        'echo "payload: ${{ toJson(github.event.client_payload) }}"'
-        'echo "block: ${{ github.event.client_payload.block }}"'
+        echo "payload: ${{ toJson(github.event.client_payload) }}"
+        echo "block: ${{ github.event.client_payload.block }}"
 
     - name: Config and start
       run: |
